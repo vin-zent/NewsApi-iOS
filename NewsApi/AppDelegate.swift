@@ -6,14 +6,33 @@
 //
 
 import UIKit
+import UserNotifications
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenterDelegate{
 
 
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive: UNNotificationResponse, withCompletionHandler: () -> Void){
+        
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent: UNNotification, withCompletionHandler completionHandler : (UNNotificationPresentationOptions) -> Void){
+        
+        completionHandler([.alert, .sound])
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){ garnted, error in
+    
+            
+            print("granted...")
+            
+            
+        }
+        
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
 
